@@ -88,16 +88,16 @@ class UserView:
         user_orm = self.session.query(models.User).get(user_id)
         return schema.Task.from_orm(user_orm)
 
-    # @router.put("/user/{user_id}")
-    # def update_user(self, user_id, user: schema.User) -> Tasks:
-    #     user_orm = self.session.query(models.User).get(user_id)
-    #
-    #     user_orm.email = user.email
-    #     user_orm.username = user.user_name
-    #
-    #     self.session.add(user_orm)
-    #     self.session.commit()
-    #     return schema.User.from_orm(user_orm)
+    @router.put("/user/{user_id}")
+    def update_user(self, user_id, user: schema.User) -> Tasks:
+        user_orm = self.session.query(models.User).get(user_id)
+
+        user_orm.email = user.email
+        user_orm.username = user.user_name
+
+        self.session.add(user_orm)
+        self.session.commit()
+        return schema.User.from_orm(user_orm)
 
     @router.delete("/user/{user_id}")
     def delete_task(self, user_id) -> APIMessage:
