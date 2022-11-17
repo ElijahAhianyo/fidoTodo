@@ -3,6 +3,7 @@ from fastapi import  Depends, HTTPException
 from fastapi_utils.inferring_router import InferringRouter
 
 import schema, models
+from fidoTodo.app.schema import User
 from utils import get_db
 from sqlalchemy.orm import Session
 from config import get_settings
@@ -89,7 +90,7 @@ class UserView:
         return schema.Task.from_orm(user_orm)
 
     @router.put("/user/{user_id}")
-    def update_user(self, user_id, user: schema.User) -> schema.Task:
+    def update_user(self, user_id, user: schema.User) -> User:
         user_orm = self.session.query(models.User).get(user_id)
 
         user_orm.email = user.email
