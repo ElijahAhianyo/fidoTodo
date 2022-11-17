@@ -70,11 +70,11 @@ class TaskView:
 class UserView:
     session: Session = Depends(get_db)
 
-    # @router.get("user/{user_id}/tasks")
-    # def get_user_tasks(self, user_id) -> list[Tasks]:
-    #     user = self.session.query(models.User).get(user_id)
-    #     return self.session.query(models.Tasks).filter(
-    #         models.Tasks.assigned_to == user)
+    @router.get("user/{user_id}/tasks")
+    def get_user_tasks(self, user_id) -> list[Tasks]:
+        user = self.session.query(models.User).get(user_id)
+        return self.session.query(models.Tasks).filter(
+            models.Tasks.assigned_to == user)
 
     @router.post("/users")
     def create_user(self, user: schema.UserCreate) -> schema.User:
