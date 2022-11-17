@@ -89,7 +89,7 @@ class UserView:
         return schema.Task.from_orm(user_orm)
 
     @router.put("/user/{user_id}")
-    def update_user(self, user_id, user: schema.User) -> Tasks:
+    def update_user(self, user_id, user: schema.User) -> schema.Task:
         user_orm = self.session.query(models.User).get(user_id)
 
         user_orm.email = user.email
